@@ -368,7 +368,13 @@
 
 .panel-fondo {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Alto explícito en vez de "inset:0": así el panel sigue de verdad el
+     tamaño real de la pantalla (incluyendo cuando aparece el teclado),
+     en vez de quedarse con la medida de antes y dar un salto. */
+  height: 100dvh;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 50;
   display: flex;
@@ -377,8 +383,9 @@
 
 .panel-hoja {
   width: 100%;
-  max-height: 92vh;
+  max-height: 92dvh;
   overflow-y: auto;
+  overscroll-behavior: contain;
   background-color: var(--color-canvas);
   border-top: 1px solid var(--color-borde);
   border-radius: var(--radio-panel) var(--radio-panel) 0 0;

@@ -27,8 +27,9 @@ body {
   font-weight: 400;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  position: fixed;
-  inset: 0;
+  /* Ojo: a propósito NO lleva "position: fixed" — eso hacía que el teclado
+     del celular (al escribir en nota/fecha) desacomodara todo. Con solo
+     "overflow: hidden" ya alcanza para que el body no scrollee ni rebote. */
 }
 
 /* #app y #vista arman el "cascarón" fijo de la app: lo único que se mueve
