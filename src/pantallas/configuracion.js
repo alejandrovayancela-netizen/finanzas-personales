@@ -8,6 +8,7 @@ import { estaEnModoSeguimiento } from '../datos/ciclos.js';
 import { abrirChecklistCobro } from '../componentes/checklistCobro.js';
 import { descargarRespaldoJSON, descargarHistorialCSV, restaurarRespaldo } from '../datos/respaldo.js';
 import { mostrarConfirmacion } from '../componentes/confirmacion.js';
+import { mostrarAviso } from '../componentes/aviso.js';
 import { formatearMoneda } from '../utilidades/dinero.js';
 import { refrescar } from '../router.js';
 
@@ -150,5 +151,6 @@ export async function renderConfiguracion(contenedor) {
     }
 
     await refrescar();
+    mostrarAviso('Cambios guardados');
   });
 }
