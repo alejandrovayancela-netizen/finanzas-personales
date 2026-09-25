@@ -198,7 +198,7 @@
         ${t?`<button type="button" class="btn btn-peligro btn-bloque" id="btn-borrar-categoria" style="margin-top: 12px;">Borrar categoría</button>`:``}
       </form>
     </div>
-  `,document.body.appendChild(n),n.querySelector(`#btn-cerrar-form`).addEventListener(`click`,()=>n.remove()),n.addEventListener(`click`,e=>{e.target===n&&n.remove()}),n.querySelector(`#form-categoria`).addEventListener(`submit`,async r=>{r.preventDefault();let i={nombre:n.querySelector(`#campo-nombre`).value.trim(),monto:parseFloat(n.querySelector(`#campo-monto`).value)||0,tipo:n.querySelector(`input[name="tipo"]:checked`).value};t?await ke(e.id,i):await Oe(i),n.remove(),await J()});let r=n.querySelector(`#btn-borrar-categoria`);r&&r.addEventListener(`click`,async()=>{window.confirm(`¿Borrar la categoría "${e.nombre}"? Esto no se puede deshacer.`)&&(await Ae(e.id),n.remove(),await J())})}async function B(){return(await(await h()).getAll(`metas`)).sort((e,t)=>e.orden-t.orden)}async function _t(e){let t=await h(),n=await B(),r={id:g(),nombre:e.nombre,precioObjetivo:e.precioObjetivo,fechaObjetivo:e.fechaObjetivo||null,orden:n.length,creadaEn:Date.now()};return await t.put(`metas`,r),r}async function vt(e,t){let n=await h(),r=await n.get(`metas`,e);if(!r)throw Error(`La meta no existe`);let i={...r,...t};return await n.put(`metas`,i),i}async function yt(e){await(await h()).delete(`metas`,e)}async function bt(e,t){let n=await h(),r=await B(),i=r.findIndex(t=>t.id===e),a=t===`arriba`?i-1:i+1;if(i===-1||a<0||a>=r.length)return;let o=r[i].orden;r[i].orden=r[a].orden,r[a].orden=o,await n.put(`metas`,r[i]),await n.put(`metas`,r[a])}function xt(e,t,n){let r=Math.max(e,0),i=0;return t.map(t=>{i=w(i+t.objetivo);let a=w(Math.min(r,t.objetivo));r=w(r-a);let o=w(Math.max(t.objetivo-a,0)),s=o<=0,c=w(Math.max(i-e,0)),l=s||n<=0?s?0:null:Math.ceil(c/n);return{id:t.id,objetivo:t.objetivo,asignado:a,faltante:o,completado:s,mesesEstimados:l}})}function St(e,t){return t==null?null:ge(e,t)}var Ct=`fondo-emergencia`;async function wt(){let[e,t,n]=await Promise.all([xe(`ahorro`),k(),B()]),r=[{id:Ct,objetivo:t},...n.map(e=>({id:e.id,objetivo:e.precioObjetivo}))],i=xt(e.saldoAcumulado,r,e.monto),a=_();return i.map(t=>{let r=t.id===Ct,i=r?null:n.find(e=>e.id===t.id),o=St(a,t.mesesEstimados),s=null;return!r&&i?.fechaObjetivo&&o&&!t.completado&&(s=b(i.fechaObjetivo,o)<=0?`a-tiempo`:`atrasado`),{...t,esFondoEmergencia:r,nombre:r?`Fondo de emergencia`:i.nombre,fechaObjetivoUsuario:r?null:i.fechaObjetivo,fechaEstimada:o,comparacionFecha:s,ahorroMensual:e.monto}})}async function Tt(e){let t=await wt();e.innerHTML=`
+  `,document.body.appendChild(n),n.querySelector(`#btn-cerrar-form`).addEventListener(`click`,()=>n.remove()),n.addEventListener(`click`,e=>{e.target===n&&n.remove()}),n.querySelector(`#form-categoria`).addEventListener(`submit`,async r=>{r.preventDefault();let i={nombre:n.querySelector(`#campo-nombre`).value.trim(),monto:parseFloat(n.querySelector(`#campo-monto`).value)||0,tipo:n.querySelector(`input[name="tipo"]:checked`).value};t?await ke(e.id,i):await Oe(i),n.remove(),await J()});let r=n.querySelector(`#btn-borrar-categoria`);r&&r.addEventListener(`click`,async()=>{window.confirm(`¿Borrar la categoría "${e.nombre}"? Esto no se puede deshacer.`)&&(await Ae(e.id),n.remove(),await J())})}async function B(){return(await(await h()).getAll(`metas`)).sort((e,t)=>e.orden-t.orden)}async function _t(e){let t=await h(),n=await B(),r={id:g(),nombre:e.nombre,precioObjetivo:e.precioObjetivo,fechaObjetivo:e.fechaObjetivo||null,orden:n.length,creadaEn:Date.now()};return await t.put(`metas`,r),r}async function vt(e,t){let n=await h(),r=await n.get(`metas`,e);if(!r)throw Error(`La meta no existe`);let i={...r,...t};return await n.put(`metas`,i),i}async function yt(e){await(await h()).delete(`metas`,e)}async function bt(e,t){let n=await h(),r=await B(),i=r.findIndex(t=>t.id===e),a=t===`arriba`?i-1:i+1;if(i===-1||a<0||a>=r.length)return;let o=r[i].orden;r[i].orden=r[a].orden,r[a].orden=o,await n.put(`metas`,r[i]),await n.put(`metas`,r[a])}function xt(e,t,n){let r=Math.max(e,0),i=0;return t.map(t=>{i=w(i+t.objetivo);let a=w(Math.min(r,t.objetivo));r=w(r-a);let o=w(Math.max(t.objetivo-a,0)),s=o<=0,c=w(Math.max(i-e,0)),l=s||n<=0?s?0:null:Math.ceil(c/n);return{id:t.id,objetivo:t.objetivo,asignado:a,faltante:o,completado:s,mesesEstimados:l}})}function St(e,t){return t==null?null:ge(e,t)}var V=`fondo-emergencia`;async function Ct(){let[e,t,n]=await Promise.all([xe(`ahorro`),k(),B()]),r=[{id:V,objetivo:t},...n.map(e=>({id:e.id,objetivo:e.precioObjetivo}))],i=xt(e.saldoAcumulado,r,e.monto),a=_();return i.map(t=>{let r=t.id===V,i=r?null:n.find(e=>e.id===t.id),o=St(a,t.mesesEstimados),s=null;return!r&&i?.fechaObjetivo&&o&&!t.completado&&(s=b(i.fechaObjetivo,o)<=0?`a-tiempo`:`atrasado`),{...t,esFondoEmergencia:r,nombre:r?`Fondo de emergencia`:i.nombre,fechaObjetivoUsuario:r?null:i.fechaObjetivo,fechaEstimada:o,comparacionFecha:s,ahorroMensual:e.monto}})}async function wt(e){let t=await Ct();e.innerHTML=`
     <div class="pantalla">
       <p class="eyebrow">Metas de ahorro</p>
       <p class="cifra-media" style="margin-top: 8px;">${C(t[0]?.ahorroMensual??0)} / mes</p>
@@ -207,14 +207,14 @@
       </p>
 
       <div style="margin-top: 24px;">
-        ${t.map((e,n)=>Et(e,n,t.length)).join(``)}
+        ${t.map((e,n)=>Tt(e,n,t.length)).join(``)}
       </div>
 
       <button class="btn btn-fantasma btn-bloque" id="btn-nueva-meta" style="margin-top: 16px;">
         + Nueva meta
       </button>
     </div>
-  `,e.querySelector(`#btn-nueva-meta`).addEventListener(`click`,()=>Dt(null)),e.querySelectorAll(`[data-editar-meta]`).forEach(e=>{e.addEventListener(`click`,()=>{Dt(t.find(t=>t.id===e.dataset.editarMeta))})}),e.querySelectorAll(`[data-mover]`).forEach(e=>{e.addEventListener(`click`,async()=>{await bt(e.dataset.mover,e.dataset.direccion),await J()})})}function Et(e,t,n){let r=e.objetivo>0?Math.min(100,e.asignado/e.objetivo*100):0,i=!e.esFondoEmergencia;return`
+  `,e.querySelector(`#btn-nueva-meta`).addEventListener(`click`,()=>Et(null)),e.querySelectorAll(`[data-editar-meta]`).forEach(e=>{e.addEventListener(`click`,()=>{Et(t.find(t=>t.id===e.dataset.editarMeta))})}),e.querySelectorAll(`[data-mover]`).forEach(e=>{e.addEventListener(`click`,async()=>{await bt(e.dataset.mover,e.dataset.direccion),await J()})})}function Tt(e,t,n){let r=e.objetivo>0?Math.min(100,e.asignado/e.objetivo*100):0,i=!e.esFondoEmergencia;return`
     <div class="tarjeta-clara" style="margin-bottom: 16px;">
       <div style="display:flex; justify-content:space-between; align-items:baseline;">
         <span class="eyebrow" style="color:#4d4947;">${e.esFondoEmergencia?`Prioridad 1 · recomendado`:`Prioridad ${t+1}`}</span>
@@ -246,7 +246,7 @@
         ${i&&t<n-1?`<button class="btn btn-fantasma" data-mover="${e.id}" data-direccion="abajo" style="color:#101010; border-color:#4d4947;">▼</button>`:``}
       </div>
     </div>
-  `}function Dt(e){let t=e!==null,n=document.createElement(`div`);n.className=`panel-fondo`,n.innerHTML=`
+  `}function Et(e){let t=e!==null,n=document.createElement(`div`);n.className=`panel-fondo`,n.innerHTML=`
     <div class="panel-hoja">
       <div class="panel-hoja__cabecera">
         <h2>${t?`Editar meta`:`Nueva meta`}</h2>
@@ -273,7 +273,7 @@
         ${t?`<button type="button" class="btn btn-peligro btn-bloque" id="btn-borrar-meta" style="margin-top: 12px;">Borrar meta</button>`:``}
       </form>
     </div>
-  `,document.body.appendChild(n),n.querySelector(`#btn-cerrar-form`).addEventListener(`click`,()=>n.remove()),n.addEventListener(`click`,e=>{e.target===n&&n.remove()}),n.querySelector(`#form-meta`).addEventListener(`submit`,async r=>{r.preventDefault();let i={nombre:n.querySelector(`#campo-nombre`).value.trim(),precioObjetivo:parseFloat(n.querySelector(`#campo-precio`).value)||0,fechaObjetivo:n.querySelector(`#campo-fecha`).value||null};t?await vt(e.id,i):await _t(i),n.remove(),await J()});let r=n.querySelector(`#btn-borrar-meta`);r&&r.addEventListener(`click`,async()=>{window.confirm(`¿Borrar la meta "${e.nombre}"? Esto no se puede deshacer.`)&&(await yt(e.id),n.remove(),await J())})}async function Ot(){return(await Te()).find(e=>e.fechaFin!==null)||null}async function kt(e){let[t,n,r]=await Promise.all([O(),T(),Ot()]),i=[...t.map(e=>({id:e.id,nombre:e.nombre,monto:e.monto})),...n.filter(e=>e.id!==`ahorro`).map(e=>({id:e.id,nombre:e.nombre,monto:e.monto}))],a=await Promise.all(i.map(async t=>{let n=await M(t.id,e.ciclo.fechaInicio,_()),i=r?await M(t.id,r.fechaInicio,r.fechaFin):null,a=w(n-t.monto),o=i===null?null:w(n-i);return{...t,presupuestado:t.monto,real:n,anterior:i,sobregasto:a,delta:o}}));return a.sort((e,t)=>t.sobregasto-e.sobregasto),{filas:a,hayCicloAnterior:r!==null}}function At(e){let t=e.filter(e=>e.sobregasto>0).sort((e,t)=>t.sobregasto-e.sobregasto);if(t.length===0){let t=w(e.reduce((e,t)=>e+t.presupuestado,0)-e.reduce((e,t)=>e+t.real,0));return t>0?`Vas dentro de todos tus presupuestos. Te quedan ${C(t)} sin gastar este mes — considera pasarlos a tu Ahorro.`:`Vas dentro de todos tus presupuestos este mes. Sigue así.`}let n=t[0];return t.length===1?`Tu único sobregasto este mes es en ${n.nombre}: te pasaste por ${C(n.sobregasto)}. Revisa esa categoría la próxima semana.`:`Donde más te pasaste este mes es en ${n.nombre} (${C(n.sobregasto)} de más), seguido de ${t[1].nombre} (${C(t[1].sobregasto)} de más). Empieza por ahí.`}function jt(e,t){let n=e.filter(e=>e.monto<t),r=w(n.reduce((e,t)=>e+t.monto,0)),i=w(r*12);return{cantidad:n.length,totalMes:r,proyeccionAnual:i}}var V=`mes`;async function Mt(e){let t=await I();if(!t){e.innerHTML=`
+  `,document.body.appendChild(n),n.querySelector(`#btn-cerrar-form`).addEventListener(`click`,()=>n.remove()),n.addEventListener(`click`,e=>{e.target===n&&n.remove()}),n.querySelector(`#form-meta`).addEventListener(`submit`,async r=>{r.preventDefault();let i={nombre:n.querySelector(`#campo-nombre`).value.trim(),precioObjetivo:parseFloat(n.querySelector(`#campo-precio`).value)||0,fechaObjetivo:n.querySelector(`#campo-fecha`).value||null};t?await vt(e.id,i):await _t(i),n.remove(),await J()});let r=n.querySelector(`#btn-borrar-meta`);r&&r.addEventListener(`click`,async()=>{window.confirm(`¿Borrar la meta "${e.nombre}"? Esto no se puede deshacer.`)&&(await yt(e.id),n.remove(),await J())})}async function Dt(){return(await Te()).find(e=>e.fechaFin!==null)||null}async function Ot(e){let[t,n,r]=await Promise.all([O(),T(),Dt()]),i=[...t.map(e=>({id:e.id,nombre:e.nombre,monto:e.monto})),...n.filter(e=>e.id!==`ahorro`).map(e=>({id:e.id,nombre:e.nombre,monto:e.monto}))],a=await Promise.all(i.map(async t=>{let n=await M(t.id,e.ciclo.fechaInicio,_()),i=r?await M(t.id,r.fechaInicio,r.fechaFin):null,a=w(n-t.monto),o=i===null?null:w(n-i);return{...t,presupuestado:t.monto,real:n,anterior:i,sobregasto:a,delta:o}}));return a.sort((e,t)=>t.sobregasto-e.sobregasto),{filas:a,hayCicloAnterior:r!==null}}function kt(e){let t=e.filter(e=>e.sobregasto>0).sort((e,t)=>t.sobregasto-e.sobregasto);if(t.length===0){let t=w(e.reduce((e,t)=>e+t.presupuestado,0)-e.reduce((e,t)=>e+t.real,0));return t>0?`Vas dentro de todos tus presupuestos. Te quedan ${C(t)} sin gastar este mes — considera pasarlos a tu Ahorro.`:`Vas dentro de todos tus presupuestos este mes. Sigue así.`}let n=t[0];return t.length===1?`Tu único sobregasto este mes es en ${n.nombre}: te pasaste por ${C(n.sobregasto)}. Revisa esa categoría la próxima semana.`:`Donde más te pasaste este mes es en ${n.nombre} (${C(n.sobregasto)} de más), seguido de ${t[1].nombre} (${C(t[1].sobregasto)} de más). Empieza por ahí.`}function At(e,t){let n=e.filter(e=>e.monto<t),r=w(n.reduce((e,t)=>e+t.monto,0)),i=w(r*12);return{cantidad:n.length,totalMes:r,proyeccionAnual:i}}var H=`mes`;async function jt(e){let t=await I();if(!t){e.innerHTML=`
       <div class="pantalla">
         <p class="eyebrow">Resumen</p>
         <div class="tarjeta-clara" style="margin-top: 16px;">
@@ -283,19 +283,19 @@
           </p>
         </div>
       </div>
-    `;return}e.innerHTML=`<div class="pantalla" id="contenido-resumen"></div>`,await Nt(e.querySelector(`#contenido-resumen`),t)}async function Nt(e,t){e.innerHTML=`
+    `;return}e.innerHTML=`<div class="pantalla" id="contenido-resumen"></div>`,await Mt(e.querySelector(`#contenido-resumen`),t)}async function Mt(e,t){e.innerHTML=`
     <p class="eyebrow">Resumen</p>
     <div class="segmentado" style="margin-top: 12px;">
-      <button data-vista="semana" class="${V===`semana`?`activo`:``}">Esta semana</button>
-      <button data-vista="mes" class="${V===`mes`?`activo`:``}">Este mes</button>
+      <button data-vista="semana" class="${H===`semana`?`activo`:``}">Esta semana</button>
+      <button data-vista="mes" class="${H===`mes`?`activo`:``}">Este mes</button>
     </div>
     <div id="cuerpo-resumen" style="margin-top: 20px;"></div>
-  `,e.querySelectorAll(`[data-vista]`).forEach(n=>{n.addEventListener(`click`,async()=>{V=n.dataset.vista,await Nt(e,t)})});let n=e.querySelector(`#cuerpo-resumen`);V===`semana`?await Pt(n,t):await Ft(n,t)}async function Pt(e,t){let n=await Ye(),r=e=>e.gastado-e.presupuesto,i=[...n.conSemaforo].sort((e,t)=>r(t)-r(e));e.innerHTML=`
+  `,e.querySelectorAll(`[data-vista]`).forEach(n=>{n.addEventListener(`click`,async()=>{H=n.dataset.vista,await Mt(e,t)})});let n=e.querySelector(`#cuerpo-resumen`);H===`semana`?await Nt(n,t):await Pt(n,t)}async function Nt(e,t){let n=await Ye(),r=e=>e.gastado-e.presupuesto,i=[...n.conSemaforo].sort((e,t)=>r(t)-r(e));e.innerHTML=`
     <p class="texto-tenue" style="font-size: 13px; margin-bottom: 12px;">
       Semana ${t.semanaActual.numero} de ${t.semanas.length} · presupuestado vs. gastado
     </p>
-    ${i.map(e=>It(e.nombre,e.presupuesto,e.gastado)).join(``)}
-  `}async function Ft(e,t){let[{filas:n,hayCicloAnterior:r},i,a]=await Promise.all([kt(t),D(),j({desde:t.ciclo.fechaInicio,hasta:_()})]),o=At(n),s=jt(a,i.umbralHormiga);e.innerHTML=`
+    ${i.map(e=>Ft(e.nombre,e.presupuesto,e.gastado)).join(``)}
+  `}async function Pt(e,t){let[{filas:n,hayCicloAnterior:r},i,a]=await Promise.all([Ot(t),D(),j({desde:t.ciclo.fechaInicio,hasta:_()})]),o=kt(n),s=At(a,i.umbralHormiga);e.innerHTML=`
     <div class="alerta alerta-info">
       <p class="alerta__titulo">Tu consejo de este mes</p>
       <p>${o}</p>
@@ -304,11 +304,11 @@
     <p class="texto-tenue" style="font-size: 13px; margin: 20px 0 12px;">
       Presupuestado vs. real · de mayor a menor sobregasto
     </p>
-    ${n.map(e=>It(e.nombre,e.presupuestado,e.real)).join(``)}
+    ${n.map(e=>Ft(e.nombre,e.presupuestado,e.real)).join(``)}
 
-    ${r?Lt(n):``}
+    ${r?It(n):``}
 
-    ${zt(s,i.umbralHormiga)}
+    ${Rt(s,i.umbralHormiga)}
 
     <div style="display:flex; flex-direction: column; gap: 8px; margin-top: 24px;">
       <a href="#/historial" class="btn btn-fantasma btn-bloque" style="text-decoration:none; text-align:center;">Ver historial completo</a>
@@ -316,7 +316,7 @@
         Revisar mis suscripciones${i.ultimaRevisionSuscripcionesCicloId===t.ciclo.id?``:` (pendiente este mes)`}
       </a>
     </div>
-  `}function It(e,t,n){let r=t>0?n/t:+(n>0),i=r>=1||r>=.9?`es-rojo`:r>=.75?`es-amarillo`:``,a=Math.min(100,r*100);return`
+  `}function Ft(e,t,n){let r=t>0?n/t:+(n>0),i=r>=1||r>=.9?`es-rojo`:r>=.75?`es-amarillo`:``,a=Math.min(100,r*100);return`
     <div class="tarjeta-oscura">
       <div style="display:flex; justify-content:space-between;">
         <span>${e}</span>
@@ -328,14 +328,14 @@
         <div class="barra-progreso__relleno ${i}" style="width: ${a}%;"></div>
       </div>
     </div>
-  `}function Lt(e){let t=e.filter(e=>e.anterior!==null);return t.length===0?``:`
+  `}function It(e){let t=e.filter(e=>e.anterior!==null);return t.length===0?``:`
     <p class="texto-tenue" style="font-size: 13px; margin: 24px 0 12px;">Comparado con el mes anterior</p>
     <div class="dumbbell-leyenda">
       <span><span class="punto" style="background: var(--color-warm-granite);"></span>Mes anterior</span>
       <span><span class="punto" style="background: var(--color-bone);"></span>Este mes</span>
     </div>
-    ${t.map(Rt).join(``)}
-  `}function Rt(e){let t=Math.max(e.anterior,e.real,1)*1.15,n=e.anterior/t*100,r=e.real/t*100,i=Math.min(n,r),a=Math.abs(r-n),o=e.real>e.anterior,s=o?`var(--color-rojo)`:`var(--color-verde)`,c=e.delta>0?`+`:e.delta<0?`−`:``;return`
+    ${t.map(Lt).join(``)}
+  `}function Lt(e){let t=Math.max(e.anterior,e.real,1)*1.15,n=e.anterior/t*100,r=e.real/t*100,i=Math.min(n,r),a=Math.abs(r-n),o=e.real>e.anterior,s=o?`var(--color-rojo)`:`var(--color-verde)`,c=e.delta>0?`+`:e.delta<0?`−`:``;return`
     <div class="tarjeta-oscura">
       <div style="display:flex; justify-content:space-between; align-items:baseline;">
         <span>${e.nombre}</span>
@@ -353,7 +353,7 @@
         <span>${C(e.real)}</span>
       </div>
     </div>
-  `}function zt(e,t){return e.cantidad===0?``:`
+  `}function Rt(e,t){return e.cantidad===0?``:`
     <div class="alerta alerta-info" style="margin-top: 24px;">
       <p class="alerta__titulo">Gastos hormiga (menores a ${C(t)})</p>
       <p>
@@ -361,7 +361,7 @@
         = ${C(e.totalMes)}. Al año, eso son ${C(e.proyeccionAnual)}.
       </p>
     </div>
-  `}function H({titulo:e,mensaje:t,claseAlerta:n=`alerta-info`,textoConfirmar:r=`Continuar`,textoCancelar:i=`Cancelar`}){return new Promise(a=>{let o=document.createElement(`div`);o.className=`panel-fondo`,o.innerHTML=`
+  `}function U({titulo:e,mensaje:t,claseAlerta:n=`alerta-info`,textoConfirmar:r=`Continuar`,textoCancelar:i=`Cancelar`}){return new Promise(a=>{let o=document.createElement(`div`);o.className=`panel-fondo`,o.innerHTML=`
       <div class="panel-hoja">
         <div class="alerta ${n}">
           <p class="alerta__titulo">${e}</p>
@@ -372,29 +372,29 @@
           <button class="btn btn-fantasma btn-bloque" id="btn-cancelar">${i}</button>
         </div>
       </div>
-    `;let s=e=>{o.remove(),a(e)};o.querySelector(`#btn-confirmar`).addEventListener(`click`,()=>s(!0)),o.querySelector(`#btn-cancelar`).addEventListener(`click`,()=>s(!1)),o.addEventListener(`click`,e=>{e.target===o&&s(!1)}),document.body.appendChild(o)})}var U={busqueda:``,origenId:``,desde:``,hasta:``};async function W(e){let[t,n,r]=await Promise.all([j(),O(),T()]),i=[...n.map(e=>({...e,_origenTipo:`categoria`})),...r.map(e=>({...e,_origenTipo:`bolsillo`}))],a=new Map(i.map(e=>[e.id,e.nombre])),o=t.filter(e=>{let t=a.get(e.origenId)||``,n=!U.busqueda||e.nota.toLowerCase().includes(U.busqueda.toLowerCase())||t.toLowerCase().includes(U.busqueda.toLowerCase()),r=!U.origenId||e.origenId===U.origenId,i=!U.desde||e.fecha>=U.desde,o=!U.hasta||e.fecha<=U.hasta;return n&&r&&i&&o}),s=o.reduce((e,t)=>e+t.monto,0);e.innerHTML=`
+    `;let s=e=>{o.remove(),a(e)};o.querySelector(`#btn-confirmar`).addEventListener(`click`,()=>s(!0)),o.querySelector(`#btn-cancelar`).addEventListener(`click`,()=>s(!1)),o.addEventListener(`click`,e=>{e.target===o&&s(!1)}),document.body.appendChild(o)})}var W={busqueda:``,origenId:``,desde:``,hasta:``};async function G(e){let[t,n,r]=await Promise.all([j(),O(),T()]),i=[...n.map(e=>({...e,_origenTipo:`categoria`})),...r.map(e=>({...e,_origenTipo:`bolsillo`}))],a=new Map(i.map(e=>[e.id,e.nombre])),o=t.filter(e=>{let t=a.get(e.origenId)||``,n=!W.busqueda||e.nota.toLowerCase().includes(W.busqueda.toLowerCase())||t.toLowerCase().includes(W.busqueda.toLowerCase()),r=!W.origenId||e.origenId===W.origenId,i=!W.desde||e.fecha>=W.desde,o=!W.hasta||e.fecha<=W.hasta;return n&&r&&i&&o}),s=o.reduce((e,t)=>e+t.monto,0);e.innerHTML=`
     <div class="pantalla">
       <p class="eyebrow">Historial</p>
 
       <div class="campo" style="margin-top: 16px;">
-        <input type="text" id="input-busqueda" placeholder="Buscar por nota o categoría" value="${U.busqueda}" />
+        <input type="text" id="input-busqueda" placeholder="Buscar por nota o categoría" value="${W.busqueda}" />
       </div>
 
       <div class="campo">
         <select id="select-origen">
           <option value="">Todas las categorías y bolsillos</option>
-          ${i.map(e=>`<option value="${e.id}" ${U.origenId===e.id?`selected`:``}>${e.nombre}</option>`).join(``)}
+          ${i.map(e=>`<option value="${e.id}" ${W.origenId===e.id?`selected`:``}>${e.nombre}</option>`).join(``)}
         </select>
       </div>
 
       <div style="display:flex; gap:8px;">
         <div class="campo" style="flex:1;">
           <label>Desde</label>
-          <input type="date" id="input-desde" value="${U.desde}" />
+          <input type="date" id="input-desde" value="${W.desde}" />
         </div>
         <div class="campo" style="flex:1;">
           <label>Hasta</label>
-          <input type="date" id="input-hasta" value="${U.hasta}" />
+          <input type="date" id="input-hasta" value="${W.hasta}" />
         </div>
       </div>
 
@@ -402,9 +402,9 @@
         ${o.length} gasto${o.length===1?``:`s`} · total ${C(s)}
       </p>
 
-      ${o.map(e=>Bt(e,a.get(e.origenId))).join(``)||`<p class="texto-tenue">No hay gastos con estos filtros.</p>`}
+      ${o.map(e=>zt(e,a.get(e.origenId))).join(``)||`<p class="texto-tenue">No hay gastos con estos filtros.</p>`}
     </div>
-  `,e.querySelector(`#input-busqueda`).addEventListener(`input`,t=>{U.busqueda=t.target.value,W(e)}),e.querySelector(`#select-origen`).addEventListener(`change`,t=>{U.origenId=t.target.value,W(e)}),e.querySelector(`#input-desde`).addEventListener(`change`,t=>{U.desde=t.target.value,W(e)}),e.querySelector(`#input-hasta`).addEventListener(`change`,t=>{U.hasta=t.target.value,W(e)}),e.querySelectorAll(`[data-editar-transaccion]`).forEach(e=>{e.addEventListener(`click`,()=>{Vt(t.find(t=>t.id===e.dataset.editarTransaccion),i)})})}function Bt(e,t){return`
+  `,e.querySelector(`#input-busqueda`).addEventListener(`input`,t=>{W.busqueda=t.target.value,G(e)}),e.querySelector(`#select-origen`).addEventListener(`change`,t=>{W.origenId=t.target.value,G(e)}),e.querySelector(`#input-desde`).addEventListener(`change`,t=>{W.desde=t.target.value,G(e)}),e.querySelector(`#input-hasta`).addEventListener(`change`,t=>{W.hasta=t.target.value,G(e)}),e.querySelectorAll(`[data-editar-transaccion]`).forEach(e=>{e.addEventListener(`click`,()=>{Bt(t.find(t=>t.id===e.dataset.editarTransaccion),i)})})}function zt(e,t){return`
     <div class="tarjeta-oscura" data-editar-transaccion="${e.id}" style="cursor:pointer;">
       <div style="display:flex; justify-content:space-between;">
         <span>${t||`Categoría eliminada`}</span>
@@ -415,7 +415,7 @@
         <span class="eyebrow">${S(e.fecha)}</span>
       </div>
     </div>
-  `}function Vt(e,t){let n=document.createElement(`div`);n.className=`panel-fondo`,n.innerHTML=`
+  `}function Bt(e,t){let n=document.createElement(`div`);n.className=`panel-fondo`,n.innerHTML=`
     <div class="panel-hoja">
       <div class="panel-hoja__cabecera">
         <h2>Editar gasto</h2>
@@ -449,7 +449,7 @@
         <button type="button" class="btn btn-peligro btn-bloque" id="btn-borrar-transaccion" style="margin-top: 12px;">Borrar gasto</button>
       </form>
     </div>
-  `,document.body.appendChild(n),n.querySelector(`#btn-cerrar-form`).addEventListener(`click`,()=>n.remove()),n.addEventListener(`click`,e=>{e.target===n&&n.remove()}),n.querySelector(`#form-transaccion`).addEventListener(`submit`,async r=>{r.preventDefault();let i=t.find(e=>e.id===n.querySelector(`#campo-origen`).value);(i.id!==`ahorro`||e.origenId===`ahorro`||await H({titulo:`Estás por tocar tu Ahorro`,mensaje:`Vas a mover este gasto para que salga de tu Ahorro. ¿Seguro?`,claseAlerta:`alerta-roja`,textoConfirmar:`Sí, mover a Ahorro`,textoCancelar:`Mejor no`}))&&(await Me(e.id,{monto:parseFloat(n.querySelector(`#campo-monto`).value)||0,fecha:n.querySelector(`#campo-fecha`).value,nota:n.querySelector(`#campo-nota`).value.trim(),origenId:i.id,origenTipo:i._origenTipo}),n.remove(),await J())}),n.querySelector(`#btn-borrar-transaccion`).addEventListener(`click`,async()=>{window.confirm(`¿Borrar este gasto? Esto no se puede deshacer.`)&&(await Ne(e.id),n.remove(),await J())})}async function Ht(e){let[t,n,r]=await Promise.all([O(),D(),I()]),i=t.filter(e=>e.tipo===`fija`);e.innerHTML=`
+  `,document.body.appendChild(n),n.querySelector(`#btn-cerrar-form`).addEventListener(`click`,()=>n.remove()),n.addEventListener(`click`,e=>{e.target===n&&n.remove()}),n.querySelector(`#form-transaccion`).addEventListener(`submit`,async r=>{r.preventDefault();let i=t.find(e=>e.id===n.querySelector(`#campo-origen`).value);(i.id!==`ahorro`||e.origenId===`ahorro`||await U({titulo:`Estás por tocar tu Ahorro`,mensaje:`Vas a mover este gasto para que salga de tu Ahorro. ¿Seguro?`,claseAlerta:`alerta-roja`,textoConfirmar:`Sí, mover a Ahorro`,textoCancelar:`Mejor no`}))&&(await Me(e.id,{monto:parseFloat(n.querySelector(`#campo-monto`).value)||0,fecha:n.querySelector(`#campo-fecha`).value,nota:n.querySelector(`#campo-nota`).value.trim(),origenId:i.id,origenTipo:i._origenTipo}),n.remove(),await J())}),n.querySelector(`#btn-borrar-transaccion`).addEventListener(`click`,async()=>{window.confirm(`¿Borrar este gasto? Esto no se puede deshacer.`)&&(await Ne(e.id),n.remove(),await J())})}async function Vt(e){let[t,n,r]=await Promise.all([O(),D(),I()]),i=t.filter(e=>e.tipo===`fija`);e.innerHTML=`
     <div class="pantalla">
       <p class="eyebrow">Revisión de suscripciones</p>
       <p class="texto-tenue" style="margin-top: 8px; font-size: 14px;">
@@ -458,14 +458,14 @@
       </p>
 
       <div style="margin-top: 20px;">
-        ${i.map(Ut).join(``)||`<p class="texto-tenue">No tienes categorías fijas todavía.</p>`}
+        ${i.map(Ht).join(``)||`<p class="texto-tenue">No tienes categorías fijas todavía.</p>`}
       </div>
 
       <button class="btn btn-oscuro btn-grande btn-bloque" id="btn-terminar-revision" style="margin-top: 16px;">
         Ya revisé todo esto
       </button>
     </div>
-  `,e.querySelectorAll(`[data-borrar-suscripcion]`).forEach(e=>{e.addEventListener(`click`,async()=>{let t=e.dataset.borrarSuscripcion,n=i.find(e=>e.id===t);window.confirm(`¿Borrar "${n.nombre}"? Esto cancela el seguimiento de este gasto fijo en la app.`)&&(await Ae(t),e.closest(`.tarjeta-oscura`).remove())})}),e.querySelector(`#btn-terminar-revision`).addEventListener(`click`,async()=>{r&&await De({ultimaRevisionSuscripcionesCicloId:r.ciclo.id}),window.location.hash=`#/resumen`})}function Ut(e){return`
+  `,e.querySelectorAll(`[data-borrar-suscripcion]`).forEach(e=>{e.addEventListener(`click`,async()=>{let t=e.dataset.borrarSuscripcion,n=i.find(e=>e.id===t);window.confirm(`¿Borrar "${n.nombre}"? Esto cancela el seguimiento de este gasto fijo en la app.`)&&(await Ae(t),e.closest(`.tarjeta-oscura`).remove())})}),e.querySelector(`#btn-terminar-revision`).addEventListener(`click`,async()=>{r&&await De({ultimaRevisionSuscripcionesCicloId:r.ciclo.id}),window.location.hash=`#/resumen`})}function Ht(e){return`
     <div class="tarjeta-oscura">
       <div style="display:flex; justify-content:space-between;">
         <span>${e.nombre}</span>
@@ -476,9 +476,9 @@
         No, cancelar / borrar esta
       </button>
     </div>
-  `}var G=[`configuracion`,`categorias`,`bolsillos`,`transacciones`,`ciclos`,`cierresSemana`,`metas`],Wt=1;async function Gt(){let e=await h(),t={};for(let n of G)t[n]=await e.getAll(n);return{version:Wt,generadoEn:new Date().toISOString(),app:`finanzas-personales`,datos:t}}async function Kt(e){if(!e||typeof e!=`object`||!e.datos)throw Error(`El archivo no tiene el formato de un respaldo válido`);let t=(await h()).transaction(G,`readwrite`);for(let n of G){let r=t.objectStore(n);await r.clear();let i=e.datos[n]||[];for(let e of i)await r.put(e)}await t.done}function qt(e,t,n){let r=new Blob([e],{type:n}),i=URL.createObjectURL(r),a=document.createElement(`a`);a.href=i,a.download=t,document.body.appendChild(a),a.click(),a.remove(),URL.revokeObjectURL(i)}async function Jt(){let e=await Gt(),t=new Date().toISOString().slice(0,10);qt(JSON.stringify(e,null,2),`respaldo-finanzas-${t}.json`,`application/json`)}function Yt(e){let t=String(e??``);return t.includes(`,`)||t.includes(`"`)||t.includes(`
-`)?`"${t.replace(/"/g,`""`)}"`:t}async function Xt(){let[e,t,n]=await Promise.all([j(),O(),T()]),r=new Map([...t,...n].map(e=>[e.id,e.nombre]));qt(`﻿`+[[`Fecha`,`Categoria`,`Monto`,`Nota`],...e.map(e=>[S(e.fecha),r.get(e.origenId)||`Categoría eliminada`,C(e.monto),e.nota||``])].map(e=>e.map(Yt).join(`,`)).join(`\r
-`),`historial-finanzas-${new Date().toISOString().slice(0,10)}.csv`,`text/csv;charset=utf-8`)}async function Zt(e){let[t,n,r,i]=await Promise.all([D(),T(),k(),we()]),a=r+n.reduce((e,t)=>e+t.monto,0),o=t.ingresoMensual-a;e.innerHTML=`
+  `}var K=[`configuracion`,`categorias`,`bolsillos`,`transacciones`,`ciclos`,`cierresSemana`,`metas`],Ut=1;async function Wt(){let e=await h(),t={};for(let n of K)t[n]=await e.getAll(n);return{version:Ut,generadoEn:new Date().toISOString(),app:`finanzas-personales`,datos:t}}async function Gt(e){if(!e||typeof e!=`object`||!e.datos)throw Error(`El archivo no tiene el formato de un respaldo válido`);let t=(await h()).transaction(K,`readwrite`);for(let n of K){let r=t.objectStore(n);await r.clear();let i=e.datos[n]||[];for(let e of i)await r.put(e)}await t.done}function Kt(e,t,n){let r=new Blob([e],{type:n}),i=URL.createObjectURL(r),a=document.createElement(`a`);a.href=i,a.download=t,document.body.appendChild(a),a.click(),a.remove(),URL.revokeObjectURL(i)}async function qt(){let e=await Wt(),t=new Date().toISOString().slice(0,10);Kt(JSON.stringify(e,null,2),`respaldo-finanzas-${t}.json`,`application/json`)}function Jt(e){let t=String(e??``);return t.includes(`,`)||t.includes(`"`)||t.includes(`
+`)?`"${t.replace(/"/g,`""`)}"`:t}async function Yt(){let[e,t,n]=await Promise.all([j(),O(),T()]),r=new Map([...t,...n].map(e=>[e.id,e.nombre]));Kt(`﻿`+[[`Fecha`,`Categoria`,`Monto`,`Nota`],...e.map(e=>[S(e.fecha),r.get(e.origenId)||`Categoría eliminada`,C(e.monto),e.nota||``])].map(e=>e.map(Jt).join(`,`)).join(`\r
+`),`historial-finanzas-${new Date().toISOString().slice(0,10)}.csv`,`text/csv;charset=utf-8`)}function Xt(e){let t=document.getElementById(`aviso-flotante`);t&&t.remove();let n=document.createElement(`div`);n.id=`aviso-flotante`,n.className=`aviso-flotante`,n.textContent=e,document.body.appendChild(n),requestAnimationFrame(()=>n.classList.add(`visible`)),setTimeout(()=>{n.classList.remove(`visible`),setTimeout(()=>n.remove(),250)},1800)}async function Zt(e){let[t,n,r,i]=await Promise.all([D(),T(),k(),we()]),a=r+n.reduce((e,t)=>e+t.monto,0),o=t.ingresoMensual-a;e.innerHTML=`
     <div class="pantalla">
       <p class="eyebrow">Ajustes</p>
 
@@ -545,7 +545,7 @@
         <button class="btn btn-fantasma btn-bloque" id="btn-exportar-csv">Exportar historial a Excel (CSV)</button>
       </div>
     </div>
-  `;let s=e.querySelector(`#btn-confirmar-nuevo-cobro`);s&&s.addEventListener(`click`,()=>tt()),e.querySelector(`#btn-descargar-respaldo`).addEventListener(`click`,()=>Jt()),e.querySelector(`#btn-exportar-csv`).addEventListener(`click`,()=>Xt());let c=e.querySelector(`#input-restaurar`);e.querySelector(`#btn-restaurar-respaldo`).addEventListener(`click`,()=>c.click()),c.addEventListener(`change`,async()=>{let e=c.files[0];if(!e)return;let t=await H({titulo:`Vas a reemplazar todos tus datos`,mensaje:`Se borrará todo lo que tienes ahora en la app y se reemplazará por lo que hay en "${e.name}". Esto no se puede deshacer.`,claseAlerta:`alerta-roja`,textoConfirmar:`Sí, restaurar este respaldo`,textoCancelar:`Cancelar`});if(c.value=``,t)try{let t=await e.text();await Kt(JSON.parse(t)),alert(`Respaldo restaurado. La app se va a recargar.`),window.location.hash=``,window.location.reload()}catch(e){alert(`No se pudo restaurar el respaldo: ${e.message}`)}}),e.querySelector(`#form-ajustes`).addEventListener(`submit`,async t=>{t.preventDefault(),await De({ingresoMensual:parseFloat(e.querySelector(`#campo-ingreso`).value)||0,diaCobroEsperado:parseInt(e.querySelector(`#campo-dia-cobro`).value,10)||1,umbralHormiga:parseFloat(e.querySelector(`#campo-umbral-hormiga`).value)||0});let n=e.querySelectorAll(`[data-bolsillo]`);for(let e of n)await Se(e.dataset.bolsillo,parseFloat(e.value)||0);await J()})}var Qt=[{id:`hoy`,href:`#`,icono:`◆`,etiqueta:`Hoy`},{id:`categorias`,href:`#/categorias`,icono:`▤`,etiqueta:`Categorías`},{id:`metas`,href:`#/metas`,icono:`●`,etiqueta:`Metas`},{id:`resumen`,href:`#/resumen`,icono:`▲`,etiqueta:`Resumen`},{id:`ajustes`,href:`#/ajustes`,icono:`⚙`,etiqueta:`Ajustes`}];function $t(e){let t=document.getElementById(`nav-inferior`);t&&(t.innerHTML=Qt.map(t=>`
+  `;let s=e.querySelector(`#btn-confirmar-nuevo-cobro`);s&&s.addEventListener(`click`,()=>tt()),e.querySelector(`#btn-descargar-respaldo`).addEventListener(`click`,()=>qt()),e.querySelector(`#btn-exportar-csv`).addEventListener(`click`,()=>Yt());let c=e.querySelector(`#input-restaurar`);e.querySelector(`#btn-restaurar-respaldo`).addEventListener(`click`,()=>c.click()),c.addEventListener(`change`,async()=>{let e=c.files[0];if(!e)return;let t=await U({titulo:`Vas a reemplazar todos tus datos`,mensaje:`Se borrará todo lo que tienes ahora en la app y se reemplazará por lo que hay en "${e.name}". Esto no se puede deshacer.`,claseAlerta:`alerta-roja`,textoConfirmar:`Sí, restaurar este respaldo`,textoCancelar:`Cancelar`});if(c.value=``,t)try{let t=await e.text();await Gt(JSON.parse(t)),alert(`Respaldo restaurado. La app se va a recargar.`),window.location.hash=``,window.location.reload()}catch(e){alert(`No se pudo restaurar el respaldo: ${e.message}`)}}),e.querySelector(`#form-ajustes`).addEventListener(`submit`,async t=>{t.preventDefault(),await De({ingresoMensual:parseFloat(e.querySelector(`#campo-ingreso`).value)||0,diaCobroEsperado:parseInt(e.querySelector(`#campo-dia-cobro`).value,10)||1,umbralHormiga:parseFloat(e.querySelector(`#campo-umbral-hormiga`).value)||0});let n=e.querySelectorAll(`[data-bolsillo]`);for(let e of n)await Se(e.dataset.bolsillo,parseFloat(e.value)||0);await J(),Xt(`Cambios guardados`)})}var Qt=[{id:`hoy`,href:`#`,icono:`◆`,etiqueta:`Hoy`},{id:`categorias`,href:`#/categorias`,icono:`▤`,etiqueta:`Categorías`},{id:`metas`,href:`#/metas`,icono:`●`,etiqueta:`Metas`},{id:`resumen`,href:`#/resumen`,icono:`▲`,etiqueta:`Resumen`},{id:`ajustes`,href:`#/ajustes`,icono:`⚙`,etiqueta:`Ajustes`}];function $t(e){let t=document.getElementById(`nav-inferior`);t&&(t.innerHTML=Qt.map(t=>`
       <a
         class="nav-inferior__item ${t.id===e?`activo`:``}"
         href="${t.href}"
@@ -553,14 +553,14 @@
         <span class="nav-inferior__icono">${t.icono}</span>
         <span>${t.etiqueta}</span>
       </a>
-    `).join(``))}var K={"":{render:R,id:`hoy`},"#/categorias":{render:mt,id:`categorias`},"#/metas":{render:Tt,id:`metas`},"#/resumen":{render:Mt,id:`resumen`},"#/historial":{render:W,id:`resumen`},"#/suscripciones":{render:Ht,id:`resumen`},"#/ajustes":{render:Zt,id:`ajustes`}},en;function tn(){return K[window.location.hash]||K[``]}async function q(){let e=tn();$t(e.id),await e.render(en)}async function J(){await q()}function nn(e){en=e,window.addEventListener(`hashchange`,q),q()}var Y=`0`,X=null,Z=!1;function rn(){return`$${Y}`}function an(){return parseFloat(Y.replace(`,`,`.`))||0}function on(){Y=`0`,X=null,Z=!1}async function sn(){on();let e=await Fe(),t=document.createElement(`div`);t.className=`panel-fondo`,t.innerHTML=`
+    `).join(``))}var en={"":{render:R,id:`hoy`},"#/categorias":{render:mt,id:`categorias`},"#/metas":{render:wt,id:`metas`},"#/resumen":{render:jt,id:`resumen`},"#/historial":{render:G,id:`resumen`},"#/suscripciones":{render:Vt,id:`resumen`},"#/ajustes":{render:Zt,id:`ajustes`}},tn;function nn(){return en[window.location.hash]||en[``]}async function q(){let e=nn();$t(e.id),await e.render(tn)}async function J(){await q()}function rn(e){tn=e,window.addEventListener(`hashchange`,q),q()}var Y=`0`,X=null,Z=!1;function an(){return`$${Y}`}function on(){return parseFloat(Y.replace(`,`,`.`))||0}function sn(){Y=`0`,X=null,Z=!1}async function cn(){sn();let e=await Fe(),t=document.createElement(`div`);t.className=`panel-fondo`,t.innerHTML=`
     <div class="panel-hoja">
       <div class="panel-hoja__cabecera">
         <h2>Registrar gasto</h2>
         <button class="btn btn-fantasma" id="btn-cerrar-registro" aria-label="Cerrar">✕</button>
       </div>
 
-      <div class="monto-mostrado" id="monto-mostrado">${rn()}</div>
+      <div class="monto-mostrado" id="monto-mostrado">${an()}</div>
 
       <div class="teclado-numerico" id="teclado-numerico">
         ${[`1`,`2`,`3`,`4`,`5`,`6`,`7`,`8`,`9`,`,`,`0`,`⌫`].map(e=>`<button type="button" data-tecla="${e}">${e}</button>`).join(``)}
@@ -601,8 +601,8 @@
         Guardar
       </button>
     </div>
-  `,document.body.appendChild(t),fn(t)}function Q(e){e.remove()}var cn={amarillo:`alerta-amarilla`,rojo:`alerta-roja`,pasado:`alerta-roja`},ln={amarillo:`Vas rápido`,rojo:`Cuidado`,pasado:`Te vas a exceder`};async function un(e){let t=await Xe(X.tipo,X.id,e);return!t||t.estado===`verde`||H({titulo:ln[t.estado],mensaje:t.mensaje,claseAlerta:cn[t.estado],textoConfirmar:`Registrar de todas formas`,textoCancelar:`Mejor no`})}function $(e){let t=e.querySelector(`#btn-guardar-gasto`);t.disabled=!(an()>0&&X!==null)}function dn(e,t){e.querySelectorAll(`.chip-categoria`).forEach(e=>e.classList.remove(`activo`)),t.classList.add(`activo`),X={tipo:t.dataset.tipo,id:t.dataset.id,nombre:t.dataset.nombre},Z=!1,$(e)}function fn(e){e.querySelector(`#btn-cerrar-registro`).addEventListener(`click`,()=>Q(e)),e.addEventListener(`click`,t=>{t.target===e&&Q(e)}),e.querySelector(`#teclado-numerico`).addEventListener(`click`,t=>{let n=t.target.closest(`button[data-tecla]`);if(!n)return;let r=n.dataset.tecla;if(r===`⌫`)Y=Y.length>1?Y.slice(0,-1):`0`;else if(r===`,`)Y.includes(`,`)||(Y+=`,`);else{let[,e]=Y.split(`,`);if(e!==void 0&&e.length>=2)return;Y=Y===`0`?r:Y+r}e.querySelector(`#monto-mostrado`).textContent=rn(),$(e)}),e.querySelector(`#selector-origenes`).addEventListener(`click`,t=>{let n=t.target.closest(`.chip-categoria`);n&&dn(e,n)}),e.querySelector(`#btn-retirar-ahorro`).addEventListener(`click`,async()=>{await H({titulo:`Estás por tocar tu Ahorro`,mensaje:`Este dinero es tu fondo de emergencia y tus metas. ¿Seguro que quieres retirar de ahí?`,claseAlerta:`alerta-roja`,textoConfirmar:`Sí, retirar de mi Ahorro`,textoCancelar:`Mejor no`})&&(Z=!0,e.querySelectorAll(`.chip-categoria`).forEach(e=>e.classList.remove(`activo`)),X={tipo:`bolsillo`,id:`ahorro`,nombre:`Ahorro`},$(e))}),e.querySelector(`#btn-guardar-gasto`).addEventListener(`click`,async()=>{let t=e.querySelector(`#btn-guardar-gasto`);t.disabled=!0;let n=an();if(!await un(n)){t.disabled=!1;return}try{await je({monto:n,origenTipo:X.tipo,origenId:X.id,nota:e.querySelector(`#input-nota`).value.trim(),fecha:e.querySelector(`#input-fecha`).value||_(),confirmoRetiroAhorro:Z}),Q(e),await J()}catch(e){alert(`No se pudo guardar el gasto: ${e.message}`),t.disabled=!1}})}function pn(){let e=e=>e.preventDefault();document.addEventListener(`gesturestart`,e),document.addEventListener(`gesturechange`,e),document.addEventListener(`gestureend`,e)}async function mn(){pn(),await ye();let e=document.getElementById(`app`);e.innerHTML=`
+  `,document.body.appendChild(t),pn(t)}function Q(e){e.remove()}var ln={amarillo:`alerta-amarilla`,rojo:`alerta-roja`,pasado:`alerta-roja`},un={amarillo:`Vas rápido`,rojo:`Cuidado`,pasado:`Te vas a exceder`};async function dn(e){let t=await Xe(X.tipo,X.id,e);return!t||t.estado===`verde`||U({titulo:un[t.estado],mensaje:t.mensaje,claseAlerta:ln[t.estado],textoConfirmar:`Registrar de todas formas`,textoCancelar:`Mejor no`})}function $(e){let t=e.querySelector(`#btn-guardar-gasto`);t.disabled=!(on()>0&&X!==null)}function fn(e,t){e.querySelectorAll(`.chip-categoria`).forEach(e=>e.classList.remove(`activo`)),t.classList.add(`activo`),X={tipo:t.dataset.tipo,id:t.dataset.id,nombre:t.dataset.nombre},Z=!1,$(e)}function pn(e){e.querySelector(`#btn-cerrar-registro`).addEventListener(`click`,()=>Q(e)),e.addEventListener(`click`,t=>{t.target===e&&Q(e)}),e.querySelector(`#teclado-numerico`).addEventListener(`click`,t=>{let n=t.target.closest(`button[data-tecla]`);if(!n)return;let r=n.dataset.tecla;if(r===`⌫`)Y=Y.length>1?Y.slice(0,-1):`0`;else if(r===`,`)Y.includes(`,`)||(Y+=`,`);else{let[,e]=Y.split(`,`);if(e!==void 0&&e.length>=2)return;Y=Y===`0`?r:Y+r}e.querySelector(`#monto-mostrado`).textContent=an(),$(e)}),e.querySelector(`#selector-origenes`).addEventListener(`click`,t=>{let n=t.target.closest(`.chip-categoria`);n&&fn(e,n)}),e.querySelector(`#btn-retirar-ahorro`).addEventListener(`click`,async()=>{await U({titulo:`Estás por tocar tu Ahorro`,mensaje:`Este dinero es tu fondo de emergencia y tus metas. ¿Seguro que quieres retirar de ahí?`,claseAlerta:`alerta-roja`,textoConfirmar:`Sí, retirar de mi Ahorro`,textoCancelar:`Mejor no`})&&(Z=!0,e.querySelectorAll(`.chip-categoria`).forEach(e=>e.classList.remove(`activo`)),X={tipo:`bolsillo`,id:`ahorro`,nombre:`Ahorro`},$(e))}),e.querySelector(`#btn-guardar-gasto`).addEventListener(`click`,async()=>{let t=e.querySelector(`#btn-guardar-gasto`);t.disabled=!0;let n=on();if(!await dn(n)){t.disabled=!1;return}try{await je({monto:n,origenTipo:X.tipo,origenId:X.id,nota:e.querySelector(`#input-nota`).value.trim(),fecha:e.querySelector(`#input-fecha`).value||_(),confirmoRetiroAhorro:Z}),Q(e),await J()}catch(e){alert(`No se pudo guardar el gasto: ${e.message}`),t.disabled=!1}})}function mn(){let e=e=>e.preventDefault();document.addEventListener(`gesturestart`,e),document.addEventListener(`gesturechange`,e),document.addEventListener(`gestureend`,e)}async function hn(){mn(),await ye();let e=document.getElementById(`app`);e.innerHTML=`
     <main id="vista"></main>
     <button id="fab-registro" class="fab-registro" aria-label="Registrar gasto">+</button>
     <nav id="nav-inferior" class="nav-inferior"></nav>
-  `,document.getElementById(`fab-registro`).addEventListener(`click`,sn),nn(document.getElementById(`vista`))}mn();
+  `,document.getElementById(`fab-registro`).addEventListener(`click`,cn),rn(document.getElementById(`vista`))}hn();
