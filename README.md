@@ -22,44 +22,39 @@ automáticas. Para correrlas:
 npm test
 ```
 
-## Publicar la app gratis (paso a paso)
+## Publicada en GitHub Pages
 
-### Opción recomendada: Netlify
+La app ya está publicada en:
 
-1. Crea una cuenta gratis en [netlify.com](https://netlify.com) (puedes entrar con tu cuenta de GitHub).
-2. Sube este proyecto a GitHub (ver sección de abajo si nunca lo has hecho).
-3. En Netlify, toca **"Add new site" → "Import an existing project"** y conecta tu cuenta de GitHub.
-4. Elige el repositorio `finanzas-personales`.
-5. Netlify va a detectar automáticamente que es un proyecto Vite. Confirma estos valores (normalmente ya vienen así):
-   - **Build command:** `npm run build`
-   - **Publish directory:** `dist`
-6. Toca **"Deploy site"**. En un par de minutos tendrás un link público (algo como `tu-app-123.netlify.app`).
-7. Desde ahí, cada vez que subas un cambio a GitHub, Netlify va a publicar la nueva versión sola.
+**https://alejandrovayancela-netizen.github.io/finanzas-personales/**
 
-### Subir el proyecto a GitHub (si no lo has hecho)
+El repositorio es público (`github.com/alejandrovayancela-netizen/finanzas-personales`)
+porque GitHub Pages gratis lo requiere — pero eso solo expone el **código**.
+Tus datos reales (gastos, ingresos, metas) nunca salen de tu dispositivo.
 
-1. Crea una cuenta gratis en [github.com](https://github.com) si no tienes una.
-2. Crea un repositorio nuevo, vacío, llamado `finanzas-personales` (no marques "Add a README").
-3. En tu terminal, dentro de esta carpeta:
-   ```bash
-   git remote add origin https://github.com/TU-USUARIO/finanzas-personales.git
-   git branch -M main
-   git push -u origin main
-   ```
-4. Refresca la página de tu repositorio en GitHub: deberías ver todos los archivos.
+### Cómo publicar una actualización
 
-### Alternativa: GitHub Pages
+Cada vez que quieras subir cambios nuevos a la app publicada:
 
-1. Sube el proyecto a GitHub (pasos de arriba).
-2. En tu terminal: `npm install -D gh-pages` y agrega a `package.json`, dentro de `"scripts"`, la línea `"deploy": "npm run build && npx gh-pages -d dist"`.
-3. Corre `npm run deploy`.
-4. En GitHub, ve a **Settings → Pages** y confirma que la fuente sea la rama `gh-pages`.
-5. Tu app va a quedar en `https://TU-USUARIO.github.io/finanzas-personales/`.
+```bash
+npm run deploy
+```
+
+Esto construye la app y la sube a la rama `gh-pages`, que es la que GitHub Pages
+sirve. En 1-2 minutos el link de arriba ya tiene la versión nueva.
+
+Si además quieres guardar el historial de cambios del código (recomendado),
+antes de `npm run deploy` haz:
+
+```bash
+git add -A
+git commit -m "describe aquí qué cambiaste"
+git push
+```
 
 ## Instalar la app en tu celular
 
-Una vez que tengas el link público (de Netlify o GitHub Pages), ábrelo en el
-navegador de tu celular:
+Abre el link de arriba en el navegador de tu celular:
 
 **Android (Chrome):**
 1. Abre el link.
