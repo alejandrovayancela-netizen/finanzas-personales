@@ -250,18 +250,25 @@
   border-color: var(--color-tiza);
 }
 
-/* ---------- Navegación inferior ---------- */
+/* ---------- Navegación inferior: pastilla flotante ---------- */
+/* A pedido explícito, se aparta del look plano de Factory: flota separada
+   de los bordes, semitransparente con desenfoque (glass), como una barra
+   de herramientas de iOS. */
 
 .nav-inferior {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: var(--espacio-16);
+  right: var(--espacio-16);
+  bottom: calc(var(--espacio-16) + env(safe-area-inset-bottom));
   z-index: 30;
   display: flex;
-  background-color: var(--color-superficie);
-  border-top: 1px solid var(--color-borde);
-  padding-bottom: env(safe-area-inset-bottom);
+  justify-content: space-around;
+  background-color: rgba(29, 26, 24, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .nav-inferior__item {
@@ -270,13 +277,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  height: 64px;
+  gap: 2px;
+  height: 56px;
   background: transparent;
   border: none;
+  border-radius: 999px;
   color: var(--color-texto-tenue);
   font-family: var(--fuente-mono);
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
 }
 
@@ -285,7 +293,7 @@
 }
 
 .nav-inferior__icono {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1;
 }
 
