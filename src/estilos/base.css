@@ -1,0 +1,84 @@
+/*
+  Estilos base: reset mínimo + reglas generales de toda la app.
+  Nota: usamos la fuente del sistema (system-ui) en vez de descargar
+  "Geist" de internet, para que la app se vea bien incluso sin conexión
+  (recordemos que debe funcionar offline).
+*/
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-hueso);
+  font-family: var(--fuente-texto);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  /* Factory nunca usa negrita: la jerarquía se logra con tamaño, no con peso */
+  font-weight: 400;
+}
+
+.pantalla {
+  max-width: 480px;
+  margin: 0 auto;
+  /* El padding de abajo tiene que ser suficiente para que ningún botón quede
+     tapado por el FAB de registro rápido ni por la barra de navegación,
+     que son elementos fijos y no empujan el contenido normal. */
+  padding: var(--espacio-24) var(--espacio-16) calc(164px + env(safe-area-inset-bottom));
+}
+
+.eyebrow {
+  font-family: var(--fuente-mono);
+  font-size: 12px;
+  letter-spacing: -0.2px;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+.texto-tenue {
+  color: var(--color-texto-tenue);
+}
+
+.oculto {
+  display: none !important;
+}
+
+/* Transiciones cortas y mecánicas, en línea con la filosofía de movimiento de Factory */
+button,
+.tarjeta,
+.badge {
+  transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}

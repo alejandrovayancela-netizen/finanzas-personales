@@ -1,0 +1,508 @@
+/*
+  Componentes reutilizables de la interfaz, siguiendo el sistema "Factory":
+  fondo negro, tarjetas claras como único elemento "brillante", radios
+  pequeños (3px botones, 10px tarjetas), sin sombras ni degradados.
+*/
+
+/* ---------- Botones ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-8);
+  border: none;
+  border-radius: var(--radio-boton);
+  padding: 0 var(--espacio-16);
+  height: 48px;
+  font-size: 16px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.btn-oscuro {
+  background-color: var(--color-superficie);
+  color: var(--color-hueso);
+}
+.btn-oscuro:active {
+  background-color: #2a2725;
+}
+
+.btn-claro {
+  background-color: var(--color-tiza);
+  color: var(--color-canvas);
+}
+.btn-claro:active {
+  background-color: var(--color-hueso);
+}
+
+.btn-fantasma {
+  background: transparent;
+  color: var(--color-hueso);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-boton);
+}
+.btn-fantasma:active {
+  color: var(--color-tiza);
+  border-color: var(--color-tiza);
+}
+
+.btn-peligro {
+  background-color: transparent;
+  color: var(--color-rojo);
+  border: 1px solid var(--color-rojo);
+}
+
+.btn-grande {
+  width: 100%;
+  height: 56px;
+  font-size: 18px;
+}
+
+.btn-bloque {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Botón flotante de registro rápido: el más usado de toda la app */
+.fab-registro {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(84px + env(safe-area-inset-bottom));
+  z-index: 40;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background-color: var(--color-tiza);
+  color: var(--color-canvas);
+  font-size: 32px;
+  line-height: 1;
+  border: none;
+  box-shadow: none;
+}
+
+/* ---------- Tarjetas ---------- */
+
+.tarjeta-clara {
+  background-color: var(--color-hueso);
+  color: var(--color-canvas);
+  border-radius: var(--radio-tarjeta);
+  padding: var(--espacio-24);
+}
+
+.tarjeta-oscura {
+  background: transparent;
+  border: 1px solid var(--color-superficie);
+  border-radius: var(--radio-tarjeta);
+  padding: var(--espacio-16);
+}
+
+.tarjeta-oscura + .tarjeta-oscura {
+  margin-top: var(--espacio-16);
+}
+
+/* ---------- Textos de cifras ---------- */
+
+.cifra-grande {
+  font-size: 44px;
+  font-weight: 400;
+  letter-spacing: -1.1px;
+  line-height: 1.12;
+}
+
+.cifra-media {
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+}
+
+/* ---------- Insignia de semáforo ---------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--fuente-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: -0.2px;
+  padding: 4px 8px;
+  border-radius: var(--radio-boton);
+}
+
+.badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background-color: currentColor;
+}
+
+.badge-verde {
+  color: var(--color-verde);
+  background-color: rgba(160, 202, 146, 0.12);
+}
+.badge-amarillo {
+  color: var(--color-naranja);
+  background-color: rgba(238, 96, 24, 0.12);
+}
+.badge-rojo {
+  color: var(--color-rojo);
+  background-color: rgba(229, 72, 77, 0.14);
+}
+.badge-gris {
+  color: var(--color-texto-suave);
+  background-color: rgba(184, 179, 176, 0.1);
+}
+
+/* ---------- Barra de progreso ---------- */
+
+.barra-progreso {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background-color: var(--color-medio);
+  overflow: hidden;
+}
+
+.barra-progreso__relleno {
+  height: 100%;
+  border-radius: 999px;
+  background-color: var(--color-verde);
+}
+.barra-progreso__relleno.es-amarillo {
+  background-color: var(--color-naranja);
+}
+.barra-progreso__relleno.es-rojo {
+  background-color: var(--color-rojo);
+}
+
+/* ---------- Formularios ---------- */
+
+.campo {
+  margin-bottom: var(--espacio-16);
+}
+
+.campo label {
+  display: block;
+  font-family: var(--fuente-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+  margin-bottom: 6px;
+}
+
+.campo input[type='text'],
+.campo input[type='number'],
+.campo input[type='date'],
+.campo select {
+  width: 100%;
+  height: 48px;
+  padding: 0 var(--espacio-16);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-boton);
+  color: var(--color-hueso);
+  font-size: 16px;
+}
+
+.campo input:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--color-tiza);
+}
+
+.campo-radios {
+  display: flex;
+  gap: var(--espacio-8);
+}
+
+.campo-radios label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-boton);
+  font-size: 14px;
+  text-transform: none;
+  margin: 0;
+  cursor: pointer;
+}
+
+.campo-radios input {
+  display: none;
+}
+
+.campo-radios input:checked + span {
+  color: var(--color-canvas);
+}
+
+.campo-radios label:has(input:checked) {
+  background-color: var(--color-tiza);
+  color: var(--color-canvas);
+  border-color: var(--color-tiza);
+}
+
+/* ---------- Navegación inferior ---------- */
+
+.nav-inferior {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  background-color: var(--color-superficie);
+  border-top: 1px solid var(--color-borde);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-inferior__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 64px;
+  background: transparent;
+  border: none;
+  color: var(--color-texto-tenue);
+  font-family: var(--fuente-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.nav-inferior__item.activo {
+  color: var(--color-hueso);
+}
+
+.nav-inferior__icono {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ---------- Teclado numérico del registro rápido ---------- */
+
+.monto-mostrado {
+  text-align: center;
+  font-size: 48px;
+  letter-spacing: -1.5px;
+  padding: var(--espacio-24) 0;
+}
+
+.teclado-numerico {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background-color: var(--color-borde);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-tarjeta);
+  overflow: hidden;
+}
+
+.teclado-numerico button {
+  background-color: var(--color-canvas);
+  color: var(--color-hueso);
+  border: none;
+  height: 56px;
+  font-size: 22px;
+}
+
+.teclado-numerico button:active {
+  background-color: var(--color-superficie);
+}
+
+/* ---------- Selector de categoría en el registro rápido ---------- */
+
+.selector-categorias {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--espacio-8);
+}
+
+.chip-categoria {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: var(--espacio-16);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-tarjeta);
+  color: var(--color-hueso);
+  text-align: left;
+}
+
+.chip-categoria.activo {
+  border-color: var(--color-tiza);
+  background-color: #26221f;
+}
+
+.chip-categoria__nombre {
+  font-size: 14px;
+}
+
+.chip-categoria__saldo {
+  font-family: var(--fuente-mono);
+  font-size: 12px;
+  color: var(--color-texto-tenue);
+}
+
+/* ---------- Panel modal (hoja inferior) ---------- */
+
+.panel-fondo {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+}
+
+.panel-hoja {
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  background-color: var(--color-canvas);
+  border-top: 1px solid var(--color-borde);
+  border-radius: var(--radio-panel) var(--radio-panel) 0 0;
+  padding: var(--espacio-24) var(--espacio-16) calc(var(--espacio-32) + env(safe-area-inset-bottom));
+}
+
+.panel-hoja__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--espacio-24);
+}
+
+/* ---------- Selector de vista (Semana / Mes) ---------- */
+
+.segmentado {
+  display: flex;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-boton);
+  overflow: hidden;
+}
+
+.segmentado button {
+  flex: 1;
+  background: transparent;
+  color: var(--color-texto-tenue);
+  border: none;
+  height: 40px;
+  font-size: 14px;
+}
+
+.segmentado button.activo {
+  background-color: var(--color-hueso);
+  color: var(--color-canvas);
+}
+
+/* ---------- Gráfico "dumbbell": mes anterior vs. este mes ---------- */
+
+.dumbbell-leyenda {
+  display: flex;
+  gap: 16px;
+  font-family: var(--fuente-mono);
+  font-size: 12px;
+  color: var(--color-texto-suave);
+  margin-bottom: 12px;
+}
+
+.dumbbell-leyenda span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dumbbell-leyenda .punto {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.dumbbell-track {
+  position: relative;
+  height: 20px;
+  margin-top: 12px;
+}
+
+.dumbbell-track::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--color-borde);
+  transform: translateY(-50%);
+}
+
+.dumbbell-linea {
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  border-radius: 1px;
+  transform: translateY(-50%);
+}
+
+.dumbbell-punto {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2px var(--color-canvas);
+}
+
+.dumbbell-punto--anterior {
+  background: var(--color-warm-granite);
+}
+
+.dumbbell-punto--actual {
+  background: var(--color-bone);
+}
+
+/* ---------- Alertas ---------- */
+
+.alerta {
+  border-radius: var(--radio-tarjeta);
+  padding: var(--espacio-16);
+  margin-bottom: var(--espacio-16);
+  border: 1px solid transparent;
+  font-size: 14px;
+}
+
+.alerta-amarilla {
+  background-color: rgba(238, 96, 24, 0.1);
+  border-color: rgba(238, 96, 24, 0.4);
+  color: var(--color-hueso);
+}
+
+.alerta-roja {
+  background-color: rgba(229, 72, 77, 0.12);
+  border-color: rgba(229, 72, 77, 0.5);
+  color: var(--color-hueso);
+}
+
+.alerta-info {
+  background-color: rgba(184, 179, 176, 0.08);
+  border-color: var(--color-borde);
+  color: var(--color-hueso);
+}
+
+.alerta__titulo {
+  font-weight: 500;
+  margin-bottom: 4px;
+}

@@ -1,0 +1,42 @@
+/*
+  Tokens del sistema de diseño "Factory".
+  Estos son los valores base (colores, tipografía, espaciado) que se
+  reutilizan en toda la app. Si algún día quieres cambiar un color,
+  este es el único lugar donde hay que tocarlo.
+*/
+:root {
+  /* Colores base de Factory */
+  --color-canvas: #101010; /* fondo de toda la app */
+  --color-superficie: #1d1a18; /* tarjetas oscuras, barra de navegación */
+  --color-borde: #3d3a39; /* líneas divisorias, bordes finos */
+  --color-medio: #4d4947; /* relleno de barras de progreso vacías */
+  --color-texto-tenue: #8a8380; /* texto secundario */
+  --color-texto-suave: #b8b3b0; /* texto terciario, etiquetas */
+  --color-hueso: #eeeeee; /* texto principal, tarjetas claras */
+  --color-tiza: #fafafa; /* botón claro de máxima jerarquía */
+
+  /* Acentos funcionales (solo para datos y estados, nunca decoración) */
+  --color-naranja: #ee6018; /* alerta amarilla / estado "atención" */
+  --color-verde: #a0ca92; /* estado "vas bien" */
+  --color-rojo: #e5484d; /* estado "excedido" — no viene de Factory original,
+                             se agregó porque el semáforo necesita 3 colores
+                             y Factory solo trae naranja/verde */
+
+  /* Tipografía */
+  --fuente-texto: 'Geist', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fuente-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Espaciado (unidad base 8px) */
+  --espacio-8: 8px;
+  --espacio-16: 16px;
+  --espacio-24: 24px;
+  --espacio-32: 32px;
+  --espacio-40: 40px;
+  --espacio-56: 56px;
+  --espacio-96: 96px;
+
+  /* Bordes */
+  --radio-boton: 3px;
+  --radio-tarjeta: 10px;
+  --radio-panel: 20px;
+}
