@@ -8,6 +8,7 @@ import { listarTransacciones } from '../datos/transacciones.js';
 import { obtenerConfiguracion } from '../datos/configuracion.js';
 import { formatearMoneda } from '../utilidades/dinero.js';
 import { hoyISO } from '../utilidades/fechas.js';
+import { colorParaOrigen } from '../utilidades/colorOrigen.js';
 
 let vistaActual = 'mes'; // 'semana' | 'mes'
 
@@ -67,7 +68,7 @@ async function pintarVistaSemana(cuerpo, infoCiclo) {
     <p class="texto-tenue" style="font-size: 13px; margin-bottom: 12px;">
       Semana ${infoCiclo.semanaActual.numero} de ${infoCiclo.semanas.length} · presupuestado vs. gastado
     </p>
-    ${filas.map((f) => barraPresupuesto(f.nombre, f.presupuesto, f.gastado)).join('')}
+    ${filas.map((f) => barraPresupuesto(f.id, f.nombre, f.presupuesto, f.gastado)).join('')}
   `;
 }
 
@@ -90,7 +91,7 @@ async function pintarVistaMes(cuerpo, infoCiclo) {
     <p class="texto-tenue" style="font-size: 13px; margin: 20px 0 12px;">
       Presupuestado vs. real · de mayor a menor sobregasto
     </p>
-    ${filas.map((f) => barraPresupuesto(f.nombre, f.presupuestado, f.real)).join('')}
+    ${filas.map((f) => barraPresupuesto(f.id, f.nombre, f.presupuestado, f.real)).join('')}
 
     ${hayCicloAnterior ? bloqueComparacionMesAnterior(filas) : ''}
 
@@ -105,15 +106,15 @@ async function pintarVistaMes(cuerpo, infoCiclo) {
   `;
 }
 
-function barraPresupuesto(nombre, presupuestado, real) {
+function barraPresupuesto(id, nombre, presupuestado, real) {
   const pct = presupuestado > 0 ? real / presupuestado : real > 0 ? 1 : 0;
-  const clase = pct >= 1 ? 'es-rojo' : pct >= 0.9 ? 'es-rojo' : pct >= 0.75 ? 'es-amarillo' : '';
+  const clase = pct >= 1 ? 'es-rojo' : pct >= 0.9 ? 'es-rojo' : pct >= 0.75 ? 'es-amarillo' : 'es-identidad';
   const anchoRelleno = Math.min(100, pct * 100);
 
   return `
-    <div class="tarjeta-oscura">
+    <div class="tarjeta-oscura" style="--color-identidad: ${colorParaOrigen(id)};">
       <div style="display:flex; justify-content:space-between;">
-        <span>${nombre}</span>
+        <span class="nombre-con-color"><span class="punto-identidad"></span>${nombre}</span>
         <span class="texto-tenue" style="font-family: var(--fuente-mono); font-size: 13px;">
           ${formatearMoneda(real)} / ${formatearMoneda(presupuestado)}
         </span>
@@ -150,9 +151,9 @@ function filaDumbbell(fila) {
   const signoDelta = fila.delta > 0 ? '+' : fila.delta < 0 ? '−' : '';
 
   return `
-    <div class="tarjeta-oscura">
+    <div class="tarjeta-oscura" style="--color-identidad: ${colorParaOrigen(fila.id)};">
       <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <span>${fila.nombre}</span>
+        <span class="nombre-con-color"><span class="punto-identidad"></span>${fila.nombre}</span>
         <span style="font-family: var(--fuente-mono); font-size: 12px; color:${gastoMayor ? 'var(--color-rojo)' : 'var(--color-verde)'};">
           ${signoDelta}${formatearMoneda(Math.abs(fila.delta))}
         </span>

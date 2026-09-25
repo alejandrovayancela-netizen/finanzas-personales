@@ -7,6 +7,7 @@ import { formatearMoneda } from '../utilidades/dinero.js';
 import { formatearFechaLarga, hoyISO } from '../utilidades/fechas.js';
 import { refrescar } from '../router.js';
 import { mostrarConfirmacion } from '../componentes/confirmacion.js';
+import { colorParaOrigen } from '../utilidades/colorOrigen.js';
 
 let filtros = { busqueda: '', origenId: '', desde: '', hasta: '' };
 
@@ -97,10 +98,11 @@ export async function renderHistorial(contenedor) {
 }
 
 function filaTransaccion(t, nombreOrigen) {
+  const color = colorParaOrigen(t.origenId);
   return `
-    <div class="tarjeta-oscura" data-editar-transaccion="${t.id}" style="cursor:pointer;">
+    <div class="tarjeta-oscura" data-editar-transaccion="${t.id}" style="cursor:pointer; --color-identidad: ${color};">
       <div style="display:flex; justify-content:space-between;">
-        <span>${nombreOrigen || 'Categoría eliminada'}</span>
+        <span class="nombre-con-color"><span class="punto-identidad"></span>${nombreOrigen || 'Categoría eliminada'}</span>
         <span style="font-family: var(--fuente-mono);">${formatearMoneda(t.monto)}</span>
       </div>
       <div style="display:flex; justify-content:space-between; margin-top: 6px;" class="texto-tenue">

@@ -174,6 +174,7 @@
   height: 100%;
   border-radius: 999px;
   background-color: var(--color-verde);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease;
 }
 .barra-progreso__relleno.es-amarillo {
   background-color: var(--color-naranja);
@@ -343,7 +344,7 @@
   gap: 4px;
   padding: var(--espacio-16);
   background-color: var(--color-superficie);
-  border: 1px solid var(--color-borde);
+  border: 1px solid color-mix(in srgb, var(--color-identidad, var(--color-borde)) 35%, var(--color-borde));
   border-radius: var(--radio-tarjeta);
   color: var(--color-hueso);
   text-align: left;
@@ -379,6 +380,7 @@
   z-index: 50;
   display: flex;
   align-items: flex-end;
+  animation: entrada-fondo 0.18s ease-out;
 }
 
 .panel-hoja {
@@ -392,6 +394,27 @@
   border-top: 1px solid var(--color-borde);
   border-radius: var(--radio-panel) var(--radio-panel) 0 0;
   padding: var(--espacio-24) var(--espacio-16) calc(var(--espacio-32) + env(safe-area-inset-bottom));
+  animation: entrada-hoja 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes entrada-fondo {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes entrada-hoja {
+  from {
+    transform: translateY(28px);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .panel-hoja__cabecera {
@@ -489,6 +512,30 @@
 
 .dumbbell-punto--actual {
   background: var(--color-bone);
+}
+
+/* ---------- Color de identidad por categoría/bolsillo ---------- */
+/* Cada categoría/bolsillo tiene su propio color (como en un dashboard de
+   salud), para reconocerlas de un vistazo. Se pasa por variable CSS
+   (--color-identidad) en línea, elemento por elemento. */
+
+.punto-identidad {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background-color: var(--color-identidad, var(--color-texto-tenue));
+  flex-shrink: 0;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-identidad, transparent) 70%, transparent);
+}
+
+.nombre-con-color {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.barra-progreso__relleno.es-identidad {
+  background-color: var(--color-identidad, var(--color-verde));
 }
 
 /* ---------- Aviso flotante (confirmación de "se guardó") ---------- */

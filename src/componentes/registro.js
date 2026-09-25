@@ -6,6 +6,7 @@ import { simularEstadoConNuevoGasto } from '../logica/motorPresupuesto.js';
 import { crearTransaccion } from '../datos/transacciones.js';
 import { formatearMoneda } from '../utilidades/dinero.js';
 import { hoyISO } from '../utilidades/fechas.js';
+import { colorParaOrigen } from '../utilidades/colorOrigen.js';
 import { refrescar } from '../router.js';
 import { mostrarConfirmacion } from './confirmacion.js';
 
@@ -59,11 +60,12 @@ export async function abrirRegistroRapido() {
                 <button
                   type="button"
                   class="chip-categoria"
+                  style="--color-identidad: ${colorParaOrigen(origen.id)};"
                   data-tipo="${origen.tipo}"
                   data-id="${origen.id}"
                   data-nombre="${origen.nombre}"
                 >
-                  <span class="chip-categoria__nombre">${origen.nombre}</span>
+                  <span class="chip-categoria__nombre nombre-con-color"><span class="punto-identidad"></span>${origen.nombre}</span>
                   <span class="chip-categoria__saldo">${formatearMoneda(origen.gastado)} / ${formatearMoneda(origen.monto)}</span>
                 </button>
               `

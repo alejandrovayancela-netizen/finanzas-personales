@@ -7,6 +7,7 @@ import { obtenerEstadoCompleto, obtenerSobrantesPendientes, resolverSobrante } f
 import { abrirChecklistCobro } from '../componentes/checklistCobro.js';
 import { formatearMoneda } from '../utilidades/dinero.js';
 import { formatearFechaLarga, hoyISO } from '../utilidades/fechas.js';
+import { colorParaOrigen } from '../utilidades/colorOrigen.js';
 
 let contenedorActual = null;
 
@@ -133,10 +134,14 @@ const CLASE_BARRA = { amarillo: 'es-amarillo', rojo: 'es-rojo', pasado: 'es-rojo
 function filaConSemaforo(estado, gastadoTotalCiclo) {
   const porcentaje = estado.presupuesto > 0 ? Math.min(100, (estado.gastado / estado.presupuesto) * 100) : 100;
   const etiquetaPeriodo = estado.periodo === 'semana' ? 'esta semana' : 'este mes';
+  const color = colorParaOrigen(estado.id);
+  // El color de identidad solo manda cuando vas bien (verde); si hay alerta,
+  // manda el color de alerta — eso es información de seguridad, no de marca.
+  const claseBarra = estado.estado === 'verde' ? 'es-identidad' : CLASE_BARRA[estado.estado];
   return `
-    <div class="tarjeta-oscura">
+    <div class="tarjeta-oscura" style="--color-identidad: ${color};">
       <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <span>${estado.nombre}</span>
+        <span class="nombre-con-color"><span class="punto-identidad"></span>${estado.nombre}</span>
         <span class="badge ${CLASE_BADGE[estado.estado]}">${NOMBRE_ESTADO[estado.estado]}</span>
       </div>
       <div style="display:flex; justify-content:space-between; margin-top: 8px; font-family: var(--fuente-mono); font-size: 13px;">
@@ -144,7 +149,7 @@ function filaConSemaforo(estado, gastadoTotalCiclo) {
         <span class="texto-tenue">de ${formatearMoneda(estado.presupuesto)} ${etiquetaPeriodo}</span>
       </div>
       <div class="barra-progreso" style="margin-top: 8px;">
-        <div class="barra-progreso__relleno ${CLASE_BARRA[estado.estado]}" style="width: ${porcentaje}%;"></div>
+        <div class="barra-progreso__relleno ${claseBarra}" style="width: ${porcentaje}%;"></div>
       </div>
       ${gastadoTotalCiclo !== undefined ? `<p class="texto-tenue" style="margin-top: 8px; font-size: 12px;">En total este mes: ${formatearMoneda(gastadoTotalCiclo)}</p>` : ''}
     </div>
@@ -153,10 +158,11 @@ function filaConSemaforo(estado, gastadoTotalCiclo) {
 
 function filaFija(categoria, gastado) {
   const pagado = gastado > 0;
+  const color = colorParaOrigen(categoria.id);
   return `
-    <div class="tarjeta-oscura">
+    <div class="tarjeta-oscura" style="--color-identidad: ${color};">
       <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <span>${categoria.nombre}</span>
+        <span class="nombre-con-color"><span class="punto-identidad"></span>${categoria.nombre}</span>
         <span class="badge ${pagado ? 'badge-verde' : 'badge-gris'}">${pagado ? 'Pagado' : 'Pendiente'}</span>
       </div>
       <div style="margin-top: 8px; font-family: var(--fuente-mono); font-size: 13px;">
@@ -170,10 +176,11 @@ function filaFija(categoria, gastado) {
 function filaSimple(origen) {
   const porcentaje = origen.monto > 0 ? Math.min(100, (origen.gastado / origen.monto) * 100) : 0;
   const etiquetaTipo = origen.tipoGasto === 'fija' ? 'Fija' : origen.tipoGasto === 'variable' ? 'Variable' : '';
+  const color = colorParaOrigen(origen.id);
   return `
-    <div class="tarjeta-oscura">
+    <div class="tarjeta-oscura" style="--color-identidad: ${color};">
       <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <span>${origen.nombre}</span>
+        <span class="nombre-con-color"><span class="punto-identidad"></span>${origen.nombre}</span>
         <span class="eyebrow">${etiquetaTipo}</span>
       </div>
       <div style="display:flex; justify-content:space-between; margin-top: 8px; font-family: var(--fuente-mono); font-size: 13px;">
@@ -181,7 +188,7 @@ function filaSimple(origen) {
         <span class="texto-tenue">de ${formatearMoneda(origen.monto)}</span>
       </div>
       <div class="barra-progreso" style="margin-top: 8px;">
-        <div class="barra-progreso__relleno" style="width: ${porcentaje}%;"></div>
+        <div class="barra-progreso__relleno es-identidad" style="width: ${porcentaje}%;"></div>
       </div>
       ${
         origen.acumula
@@ -194,9 +201,9 @@ function filaSimple(origen) {
 
 function bloqueAhorro(ahorro) {
   return `
-    <div class="tarjeta-oscura">
+    <div class="tarjeta-oscura" style="--color-identidad: ${colorParaOrigen(ahorro.id)};">
       <div style="display:flex; justify-content:space-between;">
-        <span>Ahorro (protegido)</span>
+        <span class="nombre-con-color"><span class="punto-identidad"></span>Ahorro (protegido)</span>
         <span>${formatearMoneda(ahorro.monto)} / mes</span>
       </div>
       <p class="texto-tenue" style="margin-top: 8px; font-size: 13px;">

@@ -91,6 +91,18 @@ p {
      tapado por el FAB de registro rápido ni por la barra de navegación,
      que son elementos fijos y no empujan el contenido normal. */
   padding: var(--espacio-24) var(--espacio-16) calc(164px + env(safe-area-inset-bottom));
+  animation: entrada-pantalla 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes entrada-pantalla {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .eyebrow {
@@ -112,8 +124,17 @@ p {
 /* Transiciones cortas y mecánicas, en línea con la filosofía de movimiento de Factory */
 button,
 .tarjeta,
+.tarjeta-oscura,
+.chip-categoria,
 .badge {
   transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Respuesta táctil: un ligero "hundido" al tocar, para que se sienta fluido */
+button:active,
+.chip-categoria:active {
+  transform: scale(0.97);
 }

@@ -8,6 +8,7 @@ import {
 } from '../datos/categorias.js';
 import { formatearMoneda } from '../utilidades/dinero.js';
 import { refrescar } from '../router.js';
+import { colorParaOrigen } from '../utilidades/colorOrigen.js';
 
 let contenedorActual = null;
 
@@ -42,9 +43,9 @@ export async function renderCategorias(contenedor) {
 
 function filaCategoria(categoria) {
   return `
-    <div class="tarjeta-oscura">
+    <div class="tarjeta-oscura" style="--color-identidad: ${colorParaOrigen(categoria.id)};">
       <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <span>${categoria.nombre}</span>
+        <span class="nombre-con-color"><span class="punto-identidad"></span>${categoria.nombre}</span>
         <span class="eyebrow">${categoria.tipo === 'fija' ? 'Fija' : 'Variable'}</span>
       </div>
       <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 8px;">
