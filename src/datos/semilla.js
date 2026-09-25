@@ -23,22 +23,10 @@ const BOLSILLOS_INICIALES = [
   { id: 'reserva', nombre: 'Reserva', monto: 15, acumula: true, saldoAcumulado: 0 },
 ];
 
-/**
- * Si es la primera vez que se abre la app (no hay configuración guardada),
- * crea la configuración y las categorías/bolsillos de ejemplo que pidió
- * Alejandro. Si ya existen datos, no hace nada.
- */
-export async function sembrarDatosInicialesSiHaceFalta() {
-  const bd = await obtenerBD();
-  const configuracionExistente = await bd.get('configuracion', 'principal');
-  if (configuracionExistente) {
-    return; // Ya se sembraron los datos antes, no repetir.
-  }
+const TODAS_LAS_TABLAS = ['configuracion', 'categorias', 'bolsillos', 'transacciones', 'ciclos', 'cierresSemana', 'metas'];
 
-  const transaccion = bd.transaction(
-    ['configuracion', 'categorias', 'bolsillos'],
-    'readwrite'
-  );
+async function sembrar(bd) {
+  const transaccion = bd.transaction(['configuracion', 'categorias', 'bolsillos'], 'readwrite');
 
   await transaccion.objectStore('configuracion').put({
     id: 'principal',
@@ -60,4 +48,33 @@ export async function sembrarDatosInicialesSiHaceFalta() {
   }
 
   await transaccion.done;
+}
+
+/**
+ * Si es la primera vez que se abre la app (no hay configuración guardada),
+ * crea la configuración y las categorías/bolsillos de ejemplo que pidió
+ * Alejandro. Si ya existen datos, no hace nada.
+ */
+export async function sembrarDatosInicialesSiHaceFalta() {
+  const bd = await obtenerBD();
+  const configuracionExistente = await bd.get('configuracion', 'principal');
+  if (configuracionExistente) {
+    return; // Ya se sembraron los datos antes, no repetir.
+  }
+  await sembrar(bd);
+}
+
+/**
+ * Borra ABSOLUTAMENTE todo (gastos, ciclos, metas, categorías, etc.) y
+ * vuelve a dejar la app como recién instalada, con los datos de ejemplo
+ * de nuevo. Se usa para limpiar pruebas y empezar de cero.
+ */
+export async function reiniciarTodo() {
+  const bd = await obtenerBD();
+  const transaccion = bd.transaction(TODAS_LAS_TABLAS, 'readwrite');
+  for (const tabla of TODAS_LAS_TABLAS) {
+    await transaccion.objectStore(tabla).clear();
+  }
+  await transaccion.done;
+  await sembrar(bd);
 }

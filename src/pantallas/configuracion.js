@@ -7,6 +7,7 @@ import { totalEsencialesMensual } from '../datos/categorias.js';
 import { estaEnModoSeguimiento } from '../datos/ciclos.js';
 import { abrirChecklistCobro } from '../componentes/checklistCobro.js';
 import { descargarRespaldoJSON, descargarHistorialCSV, restaurarRespaldo } from '../datos/respaldo.js';
+import { reiniciarTodo } from '../datos/semilla.js';
 import { mostrarConfirmacion } from '../componentes/confirmacion.js';
 import { mostrarAviso } from '../componentes/aviso.js';
 import { formatearMoneda } from '../utilidades/dinero.js';
@@ -98,6 +99,13 @@ export async function renderConfiguracion(contenedor) {
         <input type="file" id="input-restaurar" accept="application/json" class="oculto" />
         <button class="btn btn-fantasma btn-bloque" id="btn-exportar-csv">Exportar historial a Excel (CSV)</button>
       </div>
+
+      <h3 style="margin-top: 32px; margin-bottom: 12px; font-size: 16px;">Zona de peligro</h3>
+      <p class="texto-tenue" style="font-size: 13px; margin-bottom: 12px;">
+        ¿Estuviste probando la app y quieres borrar todo para empezar de cero? Esto borra
+        gastos, ciclos y metas, y deja las categorías como al instalar la app.
+      </p>
+      <button class="btn btn-peligro btn-bloque" id="btn-reiniciar-todo">Borrar todos mis datos y empezar de cero</button>
     </div>
   `;
 
@@ -108,6 +116,30 @@ export async function renderConfiguracion(contenedor) {
 
   contenedor.querySelector('#btn-descargar-respaldo').addEventListener('click', () => descargarRespaldoJSON());
   contenedor.querySelector('#btn-exportar-csv').addEventListener('click', () => descargarHistorialCSV());
+
+  contenedor.querySelector('#btn-reiniciar-todo').addEventListener('click', async () => {
+    const primeraConfirmacion = await mostrarConfirmacion({
+      titulo: 'Vas a borrar TODO',
+      mensaje: 'Se borran todos tus gastos, ciclos, metas y bolsillos acumulados. Las categorías vuelven a los valores de ejemplo. Esto no se puede deshacer.',
+      claseAlerta: 'alerta-roja',
+      textoConfirmar: 'Sí, quiero borrar todo',
+      textoCancelar: 'Cancelar',
+    });
+    if (!primeraConfirmacion) return;
+
+    const segundaConfirmacion = await mostrarConfirmacion({
+      titulo: '¿Estás totalmente seguro?',
+      mensaje: 'Última confirmación: no hay forma de recuperar estos datos después, salvo que tengas un respaldo descargado.',
+      claseAlerta: 'alerta-roja',
+      textoConfirmar: 'Borrar todo definitivamente',
+      textoCancelar: 'Mejor no',
+    });
+    if (!segundaConfirmacion) return;
+
+    await reiniciarTodo();
+    window.location.hash = '';
+    window.location.reload();
+  });
 
   const inputRestaurar = contenedor.querySelector('#input-restaurar');
   contenedor.querySelector('#btn-restaurar-respaldo').addEventListener('click', () => inputRestaurar.click());

@@ -25,6 +25,9 @@ export async function renderResumen(contenedor) {
             para empezar a ver tu resumen semanal y mensual.
           </p>
         </div>
+        <a href="#/historial" class="btn btn-fantasma btn-bloque" style="margin-top: 16px; text-decoration:none; text-align:center;">
+          Ver historial completo
+        </a>
       </div>
     `;
     return;

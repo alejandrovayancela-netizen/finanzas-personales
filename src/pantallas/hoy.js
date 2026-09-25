@@ -44,6 +44,10 @@ export async function renderHoy(contenedor) {
         <p style="color:#4d4947; margin-top:4px;">de ${formatearMoneda(config.ingresoMensual)} de ingreso mensual</p>
       </div>
 
+      <a href="#/historial" class="btn btn-fantasma btn-bloque" style="margin-top: 16px; text-decoration:none; text-align:center;">
+        Ver / editar / borrar gastos (historial)
+      </a>
+
       <h3 style="margin-top: 32px; margin-bottom: 12px; font-size: 18px;">Esenciales</h3>
       ${
         estadoCompleto.enModoSeguimiento
