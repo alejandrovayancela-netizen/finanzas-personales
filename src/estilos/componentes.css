@@ -383,6 +383,8 @@
 
 .panel-hoja {
   width: 100%;
+  min-width: 0; /* evita que el contenido de adentro lo estire más ancho que la pantalla */
+  overflow-x: hidden;
   max-height: 92dvh;
   overflow-y: auto;
   overscroll-behavior: contain;

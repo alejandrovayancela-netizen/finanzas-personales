@@ -6,11 +6,15 @@
 */
 * {
   box-sizing: border-box;
-  /* En TODOS los elementos, no solo html/body: Safari de iPhone ignora la
-     etiqueta de viewport que pide bloquear el zoom, así que esta es la
-     barrera real (bloquea pellizco-para-zoom y doble-toque-para-zoom, pero
-     deja el scroll normal funcionando). */
-  touch-action: manipulation;
+  /* Esta app no tiene NADA que deba moverse de lado a lado — todo es una
+     sola columna. "pan-y" deja el scroll vertical normal, pero bloquea
+     cualquier arrastre horizontal (y, de paso, también el pellizco y el
+     doble-toque para hacer zoom, igual que "manipulation" pero más estricto).
+     Esto evita que un arrastre diagonal se interprete como gesto horizontal
+     — por ejemplo el de "volver atrás" que tienen Safari y Chrome en el
+     borde de la pantalla. */
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
 }
 
 html,
@@ -46,6 +50,7 @@ body {
 
 #vista {
   height: 100%;
+  overflow-x: hidden; /* nunca hacia los lados, pase lo que pase adentro */
   overflow-y: auto;
   overscroll-behavior-y: contain; /* sin rebote elástico al llegar al final */
   -webkit-overflow-scrolling: touch;
