@@ -6,6 +6,11 @@
 */
 * {
   box-sizing: border-box;
+  /* En TODOS los elementos, no solo html/body: Safari de iPhone ignora la
+     etiqueta de viewport que pide bloquear el zoom, así que esta es la
+     barrera real (bloquea pellizco-para-zoom y doble-toque-para-zoom, pero
+     deja el scroll normal funcionando). */
+  touch-action: manipulation;
 }
 
 html,
@@ -16,7 +21,6 @@ body {
   height: 100dvh; /* alto real de pantalla en celular, ignora barras del navegador */
   overflow: hidden; /* nada de scroll ni "rebote" a nivel de toda la app */
   overscroll-behavior: none;
-  touch-action: manipulation; /* evita el zoom por doble toque */
   -webkit-text-size-adjust: 100%; /* evita que el texto cambie de tamaño solo */
 }
 

@@ -7,8 +7,10 @@ import './estilos/componentes.css';
 import { sembrarDatosInicialesSiHaceFalta } from './datos/semilla.js';
 import { iniciarRouter } from './router.js';
 import { abrirRegistroRapido } from './componentes/registro.js';
+import { bloquearZoom } from './utilidades/bloquearZoom.js';
 
 async function iniciar() {
+  bloquearZoom();
   await sembrarDatosInicialesSiHaceFalta();
 
   const app = document.getElementById('app');
